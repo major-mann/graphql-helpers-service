@@ -3,7 +3,10 @@ module.exports = function createInternalGraphInteractor({ createSource = createE
                                                           createInfo = createEmptyObject }) {
 
     return async function resolve(type, fieldName, args, source, context, info) {
-        const field = type.getField(fieldName);
+        const field = typeof type.getField === 'function' ?
+            type.getField(fieldName) :
+            type.getFields()[fieldName];
+
         if (!field) {
             throw new Error(`No field named "${fieldName}" found`);
         }
