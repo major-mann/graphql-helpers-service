@@ -7,6 +7,11 @@ module.exports = {
 };
 
 function edgeExtend(type, name, extensions) {
+    if (typeof name === 'object') {
+        Object.keys(name).forEach(field => edgeExtend(type, field, name[field]));
+        return;
+    }
+
     if (extensions.document) {
         documentField(type, name, extensions.document);
     }
