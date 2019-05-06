@@ -32,7 +32,7 @@ function document(type, name, description) {
 }
 
 function cache(type, name, { maxAge, scope }) {
-    const ele;
+    let ele;
     if (name) {
         ele = type.getField(name);
     } else {
