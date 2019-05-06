@@ -16,7 +16,7 @@ function edgeExtend(type, name, extensions) {
         document(type, name, extensions.document);
     }
     if (extensions.cache) {
-        setCacheControl(type, name, extensions.cache);
+        cache(type, name, extensions.cache);
     }
     if (extensions.protect) {
         protectField(type, name, extensions.protect);
