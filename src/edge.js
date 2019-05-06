@@ -25,7 +25,7 @@ function edgeExtend(type, name, extensions) {
 
 function document(type, name, description) {
     if (name) {
-        type.getField(name).setDescription(description);
+        type.extendField(name, { description });
     } else {
         type.setDescription(description);
     }
