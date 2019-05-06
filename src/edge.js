@@ -32,17 +32,20 @@ function document(type, name, description) {
 }
 
 function cache(type, name, { maxAge, scope }) {
-    let ele;
     if (name) {
-        ele = type.getField(name);
+        type.setFieldExtension(name, 'cacheControl', {
+            version: 1,
+            maxAge,
+            scope
+        });
     } else {
-        ele = type;
+        type.setExtension('cacheControl', {
+            version: 1,
+            maxAge,
+            scope
+        });
     }
-    ele.setExtension(name, {
-        version: 1,
-        maxAge,
-        scope
-    });
+
 }
 
 function protectField(type, name, protection) {
