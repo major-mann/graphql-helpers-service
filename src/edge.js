@@ -13,7 +13,7 @@ function edgeExtend(type, name, extensions) {
     }
 
     if (extensions.document) {
-        documentField(type, name, extensions.document);
+        document(type, name, extensions.document);
     }
     if (extensions.cache) {
         setCacheControl(type, name, extensions.cache);
