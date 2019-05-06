@@ -58,5 +58,5 @@ function protectResolver(type, name, protection) {
         const result = await next(params);
         return result;
     });
-    type.setResolve(name, protectedResolver);
+    type.setResolver(name, protectedResolver);
 }
