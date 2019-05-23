@@ -13,7 +13,10 @@ function merge(destination, source) {
                     interfaces: composer.getInterfaces().map(typeName),
                     extensions: composer.getExtensions(),
                     description: composer.getDescription(),
-                    fields: Object.keys(sourceFields).reduce(cloneField, {})
+                    fields: Object.keys(sourceFields).reduce(
+                        (result, fieldName) => cloneField(result, fieldName, composer),
+                        {}
+                    )
                 });
 
                 for (const [resolverName, resolver] in composer.getResolvers()) {
@@ -23,7 +26,7 @@ function merge(destination, source) {
         }
     }
 
-    function cloneField(result, name) {
+    function cloneField(result, name, composer) {
         const sourceField = composer.getField(name);
         result[name] = {
             type: typeName(sourceField.type),
