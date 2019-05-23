@@ -28,12 +28,13 @@ function merge(destination, source) {
 
     function cloneField(result, name, composer) {
         const sourceField = composer.getField(name);
+        const args = sourceField.args && Object.keys(sourceField.args).reduce((result, argName) => {
+            result[argName] = typeName(sourceField.args[argName]);
+            return result;
+        }, {});
         result[name] = {
+            args,
             type: typeName(sourceField.type),
-            args: Object.keys(sourceField.args).reduce((result, argName) => {
-                result[argName] = typeName(sourceField.args[argName]);
-                return result;
-            }, {}),
             resolve: sourceField.resolve,
             subscribe: sourceField.subscribe,
             deprecationReason: sourceField.deprecationReason,
