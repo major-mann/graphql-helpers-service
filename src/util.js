@@ -24,7 +24,7 @@ function merge(destination, source) {
     }
 
     function cloneField(result, name) {
-        const sourceField = source.getField(name);
+        const sourceField = composer.getField(name);
         result[name] = {
             type: typeName(sourceField.type),
             args: Object.keys(sourceField.args).reduce((result, argName) => {
