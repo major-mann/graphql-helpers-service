@@ -1,6 +1,6 @@
 {
   "name": "@major-mann/graphql-helpers-service",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Helpers for creating a graphql service",
   "main": "src/index.js",
   "keywords": [
