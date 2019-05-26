@@ -57,7 +57,7 @@ function protectField(type, name, protection) {
 function protectResolver(type, name, protection) {
     const resolver = type.getResolver(name);
     const protectedResolver = resolver.wrapResolve(next => async params => {
-        await protection(params.context.user);
+        await protection(resolver, params.context.user);
         const result = await next(params);
         return result;
     });
