@@ -54,7 +54,7 @@ function sub(resolver, check, field) {
     });
 }
 
-function protect(resolver, protection) {
+function protect(resolver, protection, field) {
     field = prepareFieldName(field);
     return resolver.wrapResolve(next => async params => {
         await protection(params.context.user, params.args);
