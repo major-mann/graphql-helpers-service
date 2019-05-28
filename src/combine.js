@@ -1,5 +1,7 @@
 module.exports = combine;
 
+const BUILT_IN = ['Query', 'Mutation', 'Subscription'];
+
 const {
     SchemaComposer,
     ObjectTypeComposer,
@@ -71,8 +73,6 @@ function copy(schema, type) {
         if (!schema.has(type.getTypeName())) {
             schema.createScalarTC(type.getTypeName());
         }
-    } else {
-        console.debug(`Skipping "${type.constructor.name}" entry (Will not copy)`);
     }
 
     function process(clonedType, fieldName) {

@@ -50,16 +50,22 @@ function cache(type, name, { maxAge, scope }) {
 
 function protectField(type, name, protection) {
     const resolverName = `$${name}`;
-    protectResolver(type, resolverName, protection);
-    type.setField(name, type.getResolver(resolverName));
+    let resolver;
+    if (type.hasResolver(resolverName)) {
+        resolver = type.getResolver(resolverName);
+    } else {
+        resolver = type.getField(name).resolve || (source => source[name]);
+    }
+    resolver = protection(resolver, name);
+    if (type.hasResolver(resolverName)) {
+        type.setField(name, resolver);
+    } else {
+        type.extendField(name, { resolve: resolver });
+    }
 }
 
 function protectResolver(type, name, protection) {
     const resolver = type.getResolver(name);
-    const protectedResolver = resolver.wrapResolve(next => async params => {
-        await protection(resolver, params.context.user);
-        const result = await next(params);
-        return result;
-    });
+    const protectedResolver = protection(resolver, '');
     type.setResolver(name, protectedResolver);
 }
