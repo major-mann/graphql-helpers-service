@@ -1,6 +1,7 @@
 module.exports = combine;
 
 const BUILT_IN = ['Query', 'Mutation', 'Subscription'];
+const SCALARS = ['String', 'Int', 'Float', 'ID', 'Boolean'];
 
 const { GraphQLNonNull, GraphQLList } = require('graphql');
 
@@ -32,7 +33,10 @@ function combine({ schema1, schema2, handleConflict = () => true }) {
     }
 
     function process(name) {
-        if (composer.has(name)) {
+        if (SCALARS.includes(name)) {
+            return;
+        }
+        if (Array.from(composer.entries()).map(([name]) => name).map(typeName).includes(name)) {
             return;
         }
         if (schema1.has(name) && schema2.has(name)) {
