@@ -21,9 +21,7 @@ function combine({ schema1, schema2, handleConflict = () => true }) {
     }
 
     for (const name of typeNames(schema2)) {
-        if (!composer.has(name)) {
-            process(name);
-        }
+        process(name);
     }
 
     return composer;
@@ -34,6 +32,9 @@ function combine({ schema1, schema2, handleConflict = () => true }) {
     }
 
     function process(name) {
+        if (composer.has(name)) {
+            return;
+        }
         if (schema1.has(name) && schema2.has(name)) {
             const source = handleConflict(schema1.get(name), schema2.get(name));
             if (source === true) {
@@ -77,9 +78,7 @@ function copy(schema, type) {
             extensions: fields[field].extensions
         }));
     } else if (type instanceof ScalarTypeComposer) {
-        if (!schema.has(type.getTypeName())) {
-            schema.createScalarTC(type.getTypeName());
-        }
+        schema.createScalarTC(type.getTypeName());
     }
 
     function process(clonedType, fieldName) {
