@@ -16,17 +16,22 @@ const {
 function combine({ schema1, schema2, handleConflict = () => true }) {
     const composer = new SchemaComposer();
 
-    for (const [name] of schema1.entries()) {
+    for (const name of typeNames(schema1)) {
         process(name);
     }
 
-    for (const [name] of schema2.entries()) {
+    for (const name of typeNames(schema2)) {
         if (!composer.has(name)) {
             process(name);
         }
     }
 
     return composer;
+
+    function typeNames(schema) {
+        return Array.from(schema.entries()).map(([name]) => name)
+            .filter(name => typeof name === 'string');
+    }
 
     function process(name) {
         if (schema1.has(name) && schema2.has(name)) {
