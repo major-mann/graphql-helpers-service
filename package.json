@@ -1,16 +1,16 @@
 {
-  "name": "@major-mann/graphql-helpers-service",
-  "version": "0.0.21",
-  "description": "Helpers for creating a graphql service",
-  "main": "src/index.js",
-  "keywords": [
-    "graphql",
-    "service"
-  ],
-  "author": "Calvin Mann <calvinmann+npm@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "@major-mann/graphql-context-jwt-http": "0.0.12",
-    "graphql": "^14.3.1"
-  }
+    "name": "@major-mann/graphql-helpers-service",
+    "version": "0.0.22",
+    "description": "Helpers for creating a graphql service",
+    "main": "src/index.js",
+    "keywords": [
+        "graphql",
+        "service"
+    ],
+    "author": "Calvin Mann <calvinmann+npm@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@major-mann/graphql-context-jwt-http": "0.0.12",
+        "graphql": "^14.3.1"
+    }
 }
