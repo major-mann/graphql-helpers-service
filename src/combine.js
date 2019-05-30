@@ -321,7 +321,7 @@ function copyArg(args, result, argName) {
 function typeName(type) {
     if (typeof type === 'string') {
         return type;
-    } else if (type.getTypeName === 'function') {
+    } else if (typeof type.getTypeName === 'function') {
         return type.getTypeName();
     } else if (type instanceof GraphQLNonNull) {
         return `${typeName(type.ofType)}!`;
