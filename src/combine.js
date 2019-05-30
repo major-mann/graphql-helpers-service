@@ -2,6 +2,8 @@ module.exports = combine;
 
 const BUILT_IN = ['Query', 'Mutation', 'Subscription'];
 
+const { GraphQLNonNull, GraphQLList } = require('graphql');
+
 const {
     SchemaComposer,
     ObjectTypeComposer,
