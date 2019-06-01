@@ -10,7 +10,9 @@
     "author": "Calvin Mann <calvinmann+npm@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@major-mann/graphql-context-jwt-http": "0.0.12",
+        "@major-mann/graphql-context-jwt-http": "0.0.12"
+    },
+    "peerDependencies": {
         "graphql": "^14.3.1"
     }
 }
