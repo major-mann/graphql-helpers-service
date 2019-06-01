@@ -30,7 +30,7 @@ function admin(resolver, field) {
 function service(resolver, field) {
     field = prepareFieldName(field);
     return protect(resolver, ({ user }) => {
-        if (!user || !user.service || !user.admin) {
+        if (!user || !user.service && !user.admin) {
             throw new Error(`${field}only available for authenticated services services (or administrators)`);
         }
     });
