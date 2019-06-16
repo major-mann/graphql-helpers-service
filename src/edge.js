@@ -7,7 +7,7 @@ module.exports = {
 };
 
 function edgeExtend(type, name, extensions) {
-    if (typeof name === 'object') {
+    if (typeof name === `object`) {
         Object.keys(name).forEach(field => edgeExtend(type, field, name[field]));
         return;
     }
@@ -33,13 +33,13 @@ function document(type, name, description) {
 
 function cache(type, name, { maxAge, scope }) {
     if (name) {
-        type.setFieldExtension(name, 'cacheControl', {
+        type.setFieldExtension(name, `cacheControl`, {
             version: 1,
             maxAge,
             scope
         });
     } else {
-        type.setExtension('cacheControl', {
+        type.setExtension(`cacheControl`, {
             version: 1,
             maxAge,
             scope
@@ -50,12 +50,12 @@ function cache(type, name, { maxAge, scope }) {
 
 function protectField(type, name, protection) {
     const resolverName = `$${name}`;
+    const field = type.getField(name);
     let resolver, originalDescription;
     if (type.hasResolver(resolverName)) {
         resolver = type.getResolver(resolverName);
-        originalDescription = resolver.getDescription();
+        originalDescription = resolver.getDescription() || field.description;
     } else {
-        const field = type.getField(name);
         resolver = field.resolve || (source => source[name]);
         originalDescription = field.description;
     }
@@ -66,14 +66,16 @@ function protectField(type, name, protection) {
         type.setField(name, resolver);
     } else {
         type.extendField(name, {
-            resolve: resolver,
-            description: originalDescription
+            resolve: resolver
         });
     }
+    type.extendField(name, {
+        description: originalDescription
+    });
 }
 
 function protectResolver(type, name, protection) {
     const resolver = type.getResolver(name);
-    const protectedResolver = protection(resolver, '');
+    const protectedResolver = protection(resolver, ``);
     type.setResolver(name, protectedResolver);
 }
